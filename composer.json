@@ -1,5 +1,5 @@
 {
-    "name": "gnello/php-mattermost-driver",
+    "name": "scaleplan/php-mattermost-driver",
     "description": "The Php Driver to interact with the Mattermost Web Service API",
     "keywords": ["mattermost", "chat"],
     "homepage": "https://github.com/gnello/php-mattermost-driver",
@@ -8,12 +8,12 @@
         {
             "name": "Luca Agnello",
             "email": "luca@gnello.com"
+        },
+        {
+            "name": "Aleksandr Avtomonov",
+            "email": "admin@qooiz.me"
         }
     ],
-    "support": {
-        "email": "luca@gnello.com",
-        "issues": "https://github.com/gnello/php-mattermost-driver/issues"
-    },
     "require": {
         "php": ">=5.5.0",
         "ext-json": "*",
@@ -26,7 +26,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Gnello\\Mattermost\\": "src/"
+            "Scaleplan\\Mattermost\\": "src/"
         }
     }
 }
