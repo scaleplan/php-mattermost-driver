@@ -111,6 +111,7 @@ class BotModel extends AbstractModel
 
     /**
      * @param $botUserId
+     * @param array $requestOptions
      *
      * @return ResponseInterface
      */
