@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -9,15 +11,13 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class SystemModel
- *
- * @package Gnello\MattermostRestApi\Models
  */
 class SystemModel extends AbstractModel
 {
@@ -29,7 +29,7 @@ class SystemModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function pingServer()
+    public function pingServer() : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/ping');
     }
@@ -37,7 +37,7 @@ class SystemModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function recycleDatabaseConnections()
+    public function recycleDatabaseConnections() : ResponseInterface
     {
         $customEndpoint = '/database';
         return $this->client->post($customEndpoint . '/recycle');
@@ -46,7 +46,7 @@ class SystemModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function sendTestEmail()
+    public function sendTestEmail() : ResponseInterface
     {
         $customEndpoint = '/email';
         return $this->client->post($customEndpoint . '/test');
@@ -55,7 +55,7 @@ class SystemModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function getConfiguration()
+    public function getConfiguration() : ResponseInterface
     {
         $customEndpoint = '/config';
         return $this->client->get($customEndpoint);
@@ -63,9 +63,10 @@ class SystemModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function updateConfiguration(array $requestOptions)
+    public function updateConfiguration(array $requestOptions) : ResponseInterface
     {
         $customEndpoint = '/config';
         return $this->client->put($customEndpoint, $requestOptions);
@@ -74,7 +75,7 @@ class SystemModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function reloadConfiguration()
+    public function reloadConfiguration() : ResponseInterface
     {
         $customEndpoint = '/config';
         return $this->client->post($customEndpoint . '/reload');
@@ -82,9 +83,10 @@ class SystemModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getClientConfiguration(array $requestOptions)
+    public function getClientConfiguration(array $requestOptions) : ResponseInterface
     {
         $customEndpoint = '/config';
         return $this->client->get($customEndpoint . '/client', $requestOptions);
@@ -92,9 +94,10 @@ class SystemModel extends AbstractModel
 
     /**
      * @param $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getClientLicense(array $requestOptions)
+    public function getClientLicense(array $requestOptions) : ResponseInterface
     {
         $customEndpoint = '/license';
         return $this->client->get($customEndpoint . '/client', $requestOptions);
@@ -103,7 +106,7 @@ class SystemModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function removeLicenseFile()
+    public function removeLicenseFile() : ResponseInterface
     {
         $customEndpoint = '/license';
         return $this->client->delete($customEndpoint);
@@ -111,9 +114,10 @@ class SystemModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function uploadLicenseFile(array $requestOptions)
+    public function uploadLicenseFile(array $requestOptions) : ResponseInterface
     {
         $customEndpoint = '/license';
         $internalRequestOptions = self::buildMultipartDataOptions($requestOptions, ['license']);
@@ -123,9 +127,10 @@ class SystemModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getAudits(array $requestOptions)
+    public function getAudits(array $requestOptions) : ResponseInterface
     {
         $customEndpoint = '/audits';
         return $this->client->get($customEndpoint, $requestOptions);
@@ -134,7 +139,7 @@ class SystemModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function invalidateAllCaches()
+    public function invalidateAllCaches() : ResponseInterface
     {
         $customEndpoint = '/caches';
         return $this->client->post($customEndpoint . '/invalidate');
@@ -142,9 +147,10 @@ class SystemModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getLogs(array $requestOptions)
+    public function getLogs(array $requestOptions) : ResponseInterface
     {
         $customEndpoint = '/logs';
         return $this->client->get($customEndpoint, $requestOptions);
@@ -152,9 +158,10 @@ class SystemModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function addLogMessage(array $requestOptions)
+    public function addLogMessage(array $requestOptions) : ResponseInterface
     {
         $customEndpoint = '/logs';
         return $this->client->post($customEndpoint, $requestOptions);
@@ -163,7 +170,7 @@ class SystemModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function getWebRtcToken()
+    public function getWebRtcToken() : ResponseInterface
     {
         $customEndpoint = '/webrtc';
         return $this->client->get($customEndpoint . '/token');
@@ -172,7 +179,7 @@ class SystemModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function getAnalytics()
+    public function getAnalytics() : ResponseInterface
     {
         $customEndpoint = '/analytics';
         return $this->client->get($customEndpoint . '/old');

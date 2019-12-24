@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -9,14 +11,12 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class RoleModel
- *
- * @package Gnello\Mattermost\Models
  */
 class RoleModel extends AbstractModel
 {
@@ -27,18 +27,20 @@ class RoleModel extends AbstractModel
 
     /**
      * @param $roleId
+     *
      * @return ResponseInterface
      */
-    public function getRoleByRoleId($roleId)
+    public function getRoleByRoleId($roleId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $roleId);
     }
 
     /**
      * @param $roleName
+     *
      * @return ResponseInterface
      */
-    public function getRoleByRoleName($roleName)
+    public function getRoleByRoleName($roleName) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/name/' . $roleName);
     }
@@ -46,18 +48,20 @@ class RoleModel extends AbstractModel
     /**
      * @param       $roleId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function patchRole($roleId, array $requestOptions)
+    public function patchRole($roleId, array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/roles/' . $roleId . '/patch', $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getRolesListByName(array $requestOptions)
+    public function getRolesListByName(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/names', $requestOptions);
     }

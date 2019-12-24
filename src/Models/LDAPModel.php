@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -9,14 +11,12 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class LDAPModel
- *
- * @package Gnello\Mattermost\Models
  */
 class LDAPModel extends AbstractModel
 {
@@ -28,7 +28,7 @@ class LDAPModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function syncWithLDAP()
+    public function syncWithLDAP() : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/sync');
     }
@@ -36,7 +36,7 @@ class LDAPModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function testLDAPConfiguration()
+    public function testLDAPConfiguration() : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/test');
     }

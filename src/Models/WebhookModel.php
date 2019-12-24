@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -9,14 +11,12 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class WebhookModel
- *
- * @package Gnello\MattermostRestApi\Models
  */
 class WebhookModel extends AbstractModel
 {
@@ -27,27 +27,30 @@ class WebhookModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function createIncomingWebhook(array $requestOptions)
+    public function createIncomingWebhook(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/incoming', $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function listIncomingWebhooks(array $requestOptions)
+    public function listIncomingWebhooks(array $requestOptions) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/incoming', $requestOptions);
     }
 
     /**
      * @param       $hookId
+     *
      * @return ResponseInterface
      */
-    public function getIncomingWebhook($hookId)
+    public function getIncomingWebhook($hookId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/incoming/' . $hookId);
     }
@@ -55,45 +58,50 @@ class WebhookModel extends AbstractModel
     /**
      * @param       $hookId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function updateIncomingWebhook($hookId, array $requestOptions)
+    public function updateIncomingWebhook($hookId, array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/incoming/' . $hookId, $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function createOutgoingWebhook(array $requestOptions)
+    public function createOutgoingWebhook(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/outgoing', $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function listOutgoingWebhooks(array $requestOptions)
+    public function listOutgoingWebhooks(array $requestOptions) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/outgoing', $requestOptions);
     }
 
     /**
      * @param       $hookId
+     *
      * @return ResponseInterface
      */
-    public function getOutgoingWebhook($hookId)
+    public function getOutgoingWebhook($hookId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/outgoing/' . $hookId);
     }
 
     /**
      * @param       $hookId
+     *
      * @return ResponseInterface
      */
-    public function deleteOutgoingWebhook($hookId)
+    public function deleteOutgoingWebhook($hookId) : ResponseInterface
     {
         return $this->client->delete(self::$endpoint . '/outgoing/' . $hookId);
     }
@@ -101,18 +109,20 @@ class WebhookModel extends AbstractModel
     /**
      * @param       $hookId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function updateOutgoingWebhook($hookId, array $requestOptions)
+    public function updateOutgoingWebhook($hookId, array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/outgoing/' . $hookId, $requestOptions);
     }
 
     /**
      * @param       $hookId
+     *
      * @return ResponseInterface
      */
-    public function regenerateTokenForOutgoingWebhook($hookId)
+    public function regenerateTokenForOutgoingWebhook($hookId) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/outgoing/' . $hookId . '/regen_token');
     }

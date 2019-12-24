@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -13,15 +15,13 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class FileModel
- *
- * @package Gnello\Mattermost\Models
  */
 class FileModel extends AbstractModel
 {
@@ -32,17 +32,18 @@ class FileModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function uploadFile(array $requestOptions)
+    public function uploadFile(array $requestOptions) : ResponseInterface
     {
         $internalRequestOptions = [
             [
-                'name' => 'channel_id',
+                'name'     => 'channel_id',
                 'contents' => empty($requestOptions['channel_id']) ? null : $requestOptions['channel_id'],
             ],
             [
-                'name' => 'files',
+                'name'     => 'files',
                 'filename' => empty($requestOptions['filename']) ? null : $requestOptions['filename'],
                 'contents' => empty($requestOptions['files']) ? null : $requestOptions['files'],
             ],
@@ -50,7 +51,7 @@ class FileModel extends AbstractModel
 
         if (isset($requestOptions['client_ids'])) {
             $internalRequestOptions[] = [
-                'name' => 'client_ids',
+                'name'     => 'client_ids',
                 'contents' => $requestOptions['client_ids'],
             ];
         }
@@ -60,45 +61,50 @@ class FileModel extends AbstractModel
 
     /**
      * @param $fileId
+     *
      * @return ResponseInterface
      */
-    public function getFile($fileId)
+    public function getFile($fileId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $fileId);
     }
 
     /**
      * @param $fileId
+     *
      * @return ResponseInterface
      */
-    public function getFilesThumbnail($fileId)
+    public function getFilesThumbnail($fileId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $fileId . '/thumbnail');
     }
 
     /**
      * @param $fileId
+     *
      * @return ResponseInterface
      */
-    public function getFilesPreview($fileId)
+    public function getFilesPreview($fileId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $fileId . '/preview');
     }
 
     /**
      * @param $fileId
+     *
      * @return ResponseInterface
      */
-    public function getPublicFileLink($fileId)
+    public function getPublicFileLink($fileId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $fileId . '/link');
     }
 
     /**
      * @param $fileId
+     *
      * @return ResponseInterface
      */
-    public function getMetadataForFile($fileId)
+    public function getMetadataForFile($fileId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $fileId . '/info');
     }

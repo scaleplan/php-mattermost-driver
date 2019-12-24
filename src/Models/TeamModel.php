@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -13,15 +15,13 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class TeamModel
- *
- * @package Gnello\Mattermost
  */
 class TeamModel extends AbstractModel
 {
@@ -32,27 +32,30 @@ class TeamModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function createTeam(array $requestOptions)
+    public function createTeam(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint, $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getTeams(array $requestOptions)
+    public function getTeams(array $requestOptions) : ResponseInterface
     {
         return $this->client->get(self::$endpoint, $requestOptions);
     }
 
     /**
      * @param $teamId
+     *
      * @return ResponseInterface
      */
-    public function getTeam($teamId)
+    public function getTeam($teamId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $teamId);
     }
@@ -60,64 +63,71 @@ class TeamModel extends AbstractModel
     /**
      * @param $teamId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function updateTeam($teamId, array $requestOptions)
+    public function updateTeam($teamId, array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/' . $teamId, $requestOptions);
     }
 
     /**
      * @param $teamId
+     *
      * @return ResponseInterface
      */
-    public function deleteTeam($teamId)
+    public function deleteTeam($teamId) : ResponseInterface
     {
-        return $this->client->delete(self::$endpoint . '/' . $teamId);
+        return $this->client->delete(self::$endpoint . '/' . $teamId . '?permanent=true');
     }
 
     /**
      * @param $teamId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function patchTeam($teamId, array $requestOptions)
+    public function patchTeam($teamId, array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/' . $teamId . '/patch', $requestOptions);
     }
 
     /**
      * @param $teamName
+     *
      * @return ResponseInterface
      */
-    public function getTeamByName($teamName)
+    public function getTeamByName($teamName) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/name/' . $teamName);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function searchTeams(array $requestOptions)
+    public function searchTeams(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/search', $requestOptions);
     }
 
     /**
      * @param $teamName
+     *
      * @return ResponseInterface
      */
-    public function checkTeamExists($teamName)
+    public function checkTeamExists($teamName) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/name/' . $teamName . '/exists');
     }
 
     /**
      * @param $userId
+     *
      * @return ResponseInterface
      */
-    public function getUserTeams($userId)
+    public function getUserTeams($userId) : ResponseInterface
     {
         return $this->client->get(UserModel::$endpoint . '/' . $userId . '/teams');
     }
@@ -125,9 +135,10 @@ class TeamModel extends AbstractModel
     /**
      * @param $teamId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getTeamMembers($teamId, array $requestOptions)
+    public function getTeamMembers($teamId, array $requestOptions) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $teamId . '/members', $requestOptions);
     }
@@ -135,18 +146,20 @@ class TeamModel extends AbstractModel
     /**
      * @param $teamId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function addUser($teamId, array $requestOptions)
+    public function addUser($teamId, array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/' . $teamId . '/members', $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function addUserFromInvite(array $requestOptions)
+    public function addUserFromInvite(array $requestOptions) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/members/invite', $requestOptions);
     }
@@ -154,9 +167,10 @@ class TeamModel extends AbstractModel
     /**
      * @param $teamId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function addMultipleUsers($teamId, array $requestOptions)
+    public function addMultipleUsers($teamId, array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/' . $teamId . '/members/batch', $requestOptions);
     }
@@ -164,9 +178,10 @@ class TeamModel extends AbstractModel
     /**
      * @param $userId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getTeamMembersForUser($userId, array $requestOptions)
+    public function getTeamMembersForUser($userId, array $requestOptions) : ResponseInterface
     {
         return $this->client->get(UserModel::$endpoint . '/' . $userId . '/teams/members', $requestOptions);
     }
@@ -174,9 +189,10 @@ class TeamModel extends AbstractModel
     /**
      * @param $teamId
      * @param $userId
+     *
      * @return ResponseInterface
      */
-    public function getTeamMember($teamId, $userId)
+    public function getTeamMember($teamId, $userId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $teamId . '/members/' . $userId);
     }
@@ -185,9 +201,10 @@ class TeamModel extends AbstractModel
      * @param       $teamId
      * @param       $userId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function removeUser($teamId, $userId, array $requestOptions)
+    public function removeUser($teamId, $userId, array $requestOptions) : ResponseInterface
     {
         return $this->client->delete(self::$endpoint . '/' . $teamId . '/members/' . $userId, $requestOptions);
     }
@@ -195,18 +212,20 @@ class TeamModel extends AbstractModel
     /**
      * @param       $teamId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getTeamMembersByIds($teamId, array $requestOptions)
+    public function getTeamMembersByIds($teamId, array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/' . $teamId . '/members/ids', $requestOptions);
     }
 
     /**
      * @param $teamId
+     *
      * @return ResponseInterface
      */
-    public function getTeamStats($teamId)
+    public function getTeamStats($teamId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $teamId . '/stats');
     }
@@ -215,18 +234,20 @@ class TeamModel extends AbstractModel
      * @param $teamId
      * @param $userId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function updateTeamMemberRoles($teamId, $userId, array $requestOptions)
+    public function updateTeamMemberRoles($teamId, $userId, array $requestOptions) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $teamId . '/members/' . $userId . '/roles', $requestOptions);
     }
 
     /**
      * @param $userId
+     *
      * @return ResponseInterface
      */
-    public function getUserTotalUnreadMessagesFromTeams($userId)
+    public function getUserTotalUnreadMessagesFromTeams($userId) : ResponseInterface
     {
         return $this->client->get(UserModel::$endpoint . '/' . $userId . '/teams/unread');
     }
@@ -234,9 +255,10 @@ class TeamModel extends AbstractModel
     /**
      * @param $userId
      * @param $teamId
+     *
      * @return ResponseInterface
      */
-    public function getUserTotalUnreadMessagesFromTeam($userId, $teamId)
+    public function getUserTotalUnreadMessagesFromTeam($userId, $teamId) : ResponseInterface
     {
         return $this->client->get(UserModel::$endpoint . '/' . $userId . '/teams/' . $teamId . '/unread');
     }
@@ -244,9 +266,10 @@ class TeamModel extends AbstractModel
     /**
      * @param       $teamId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function inviteUsersByEmail($teamId, array $requestOptions)
+    public function inviteUsersByEmail($teamId, array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/' . $teamId . '/invite/email', $requestOptions);
     }
@@ -254,9 +277,10 @@ class TeamModel extends AbstractModel
     /**
      * @param       $teamId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function importTeamFromOtherApplication($teamId, array $requestOptions)
+    public function importTeamFromOtherApplication($teamId, array $requestOptions) : ResponseInterface
     {
         $internalRequestOptions = self::buildMultipartDataOptions($requestOptions, ['file', 'filesize', 'importFrom']);
 
@@ -265,9 +289,10 @@ class TeamModel extends AbstractModel
 
     /**
      * @param $teamId
+     *
      * @return ResponseInterface
      */
-    public function getInviteInfoForTeam($teamId)
+    public function getInviteInfoForTeam($teamId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/invite/' . $teamId);
     }
@@ -275,9 +300,10 @@ class TeamModel extends AbstractModel
     /**
      * @param $teamId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getPublicChannels($teamId, array $requestOptions)
+    public function getPublicChannels($teamId, array $requestOptions) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $teamId . '/channels', $requestOptions);
     }
@@ -285,9 +311,10 @@ class TeamModel extends AbstractModel
     /**
      * @param $teamId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getDeletedChannels($teamId, array $requestOptions)
+    public function getDeletedChannels($teamId, array $requestOptions) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $teamId . '/channels/deleted', $requestOptions);
     }
@@ -295,9 +322,10 @@ class TeamModel extends AbstractModel
     /**
      * @param       $teamId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function searchChannels($teamId, array $requestOptions)
+    public function searchChannels($teamId, array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/' . $teamId . '/channels/search', $requestOptions);
     }

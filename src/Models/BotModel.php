@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -9,15 +11,13 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class BotModel
- *
- * @package Gnello\Mattermost\Models
  */
 class BotModel extends AbstractModel
 {
@@ -28,18 +28,20 @@ class BotModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function createBot(array $requestOptions)
+    public function createBot(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint, $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getBots(array $requestOptions = [])
+    public function getBots(array $requestOptions = []) : ResponseInterface
     {
         return $this->client->get(self::$endpoint, $requestOptions);
     }
@@ -47,9 +49,10 @@ class BotModel extends AbstractModel
     /**
      * @param       $botUserId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function patchBot($botUserId, array $requestOptions)
+    public function patchBot($botUserId, array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/' . $botUserId, $requestOptions);
     }
@@ -57,27 +60,30 @@ class BotModel extends AbstractModel
     /**
      * @param       $botUserId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getBot($botUserId, array $requestOptions = [])
+    public function getBot($botUserId, array $requestOptions = []) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $botUserId, $requestOptions);
     }
 
     /**
      * @param $botUserId
+     *
      * @return ResponseInterface
      */
-    public function disableBot($botUserId)
+    public function disableBot($botUserId) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/' . $botUserId . '/disable');
     }
 
     /**
      * @param $botUserId
+     *
      * @return ResponseInterface
      */
-    public function enableBot($botUserId)
+    public function enableBot($botUserId) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/' . $botUserId . '/enable');
     }
@@ -85,27 +91,30 @@ class BotModel extends AbstractModel
     /**
      * @param $botUserId
      * @param $userId
+     *
      * @return ResponseInterface
      */
-    public function assignBotToUser($botUserId, $userId)
+    public function assignBotToUser($botUserId, $userId) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/' . $botUserId . '/assign/' . $userId);
     }
 
     /**
      * @param $botUserId
+     *
      * @return ResponseInterface
      */
-    public function getBotIcon($botUserId)
+    public function getBotIcon($botUserId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $botUserId . '/icon');
     }
 
     /**
      * @param $botUserId
+     *
      * @return ResponseInterface
      */
-    public function setBotIcon($botUserId, array $requestOptions)
+    public function setBotIcon($botUserId, array $requestOptions) : ResponseInterface
     {
         $internalRequestOptions = self::buildMultipartDataOptions($requestOptions, ['image']);
 
@@ -114,9 +123,10 @@ class BotModel extends AbstractModel
 
     /**
      * @param $botUserId
+     *
      * @return ResponseInterface
      */
-    public function deleteBotIcon($botUserId)
+    public function deleteBotIcon($botUserId) : ResponseInterface
     {
         return $this->client->delete(self::$endpoint . '/' . $botUserId . '/icon');
     }

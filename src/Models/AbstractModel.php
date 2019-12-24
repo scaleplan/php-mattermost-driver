@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -13,14 +15,12 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
-use Gnello\Mattermost\Client;
+use Scaleplan\Mattermost\Client;
 
 /**
  * Class AbstractModel
- *
- * @package Gnello\Mattermost
  */
 abstract class AbstractModel
 {
@@ -44,16 +44,17 @@ abstract class AbstractModel
      *
      * @param array $requestOptions The options to pass to the server.
      * @param array $requiredFields The required fields of the server.
+     *
      * @return array
      */
-    protected static function buildMultipartDataOptions(array $requestOptions = [], array $requiredFields = [])
+    protected static function buildMultipartDataOptions(array $requestOptions = [], array $requiredFields = []) : array
     {
         $multipartDataOptions = [];
 
         //required fields
         foreach ($requiredFields as $field) {
             $multipartDataOptions[] = [
-                'name' => $field,
+                'name'     => $field,
                 'contents' => empty($requestOptions[$field]) ? null : $requestOptions[$field],
             ];
 
@@ -63,7 +64,7 @@ abstract class AbstractModel
         //optional fields
         foreach ($requestOptions as $field => $value) {
             $multipartDataOptions[] = [
-                'name' => $field,
+                'name'     => $field,
                 'contents' => empty($value) ? null : $value,
             ];
         }

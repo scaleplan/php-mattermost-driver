@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -9,40 +11,40 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost;
+namespace Scaleplan\Mattermost;
 
-use Gnello\Mattermost\Models\BotModel;
-use Gnello\Mattermost\Models\BrandModel;
-use Gnello\Mattermost\Models\ChannelModel;
-use Gnello\Mattermost\Models\ClusterModel;
-use Gnello\Mattermost\Models\CommandModel;
-use Gnello\Mattermost\Models\ComplianceModel;
-use Gnello\Mattermost\Models\DataRetentionModel;
-use Gnello\Mattermost\Models\ElasticsearchModel;
-use Gnello\Mattermost\Models\EmojiModel;
-use Gnello\Mattermost\Models\FileModel;
-use Gnello\Mattermost\Models\JobModel;
-use Gnello\Mattermost\Models\LDAPModel;
-use Gnello\Mattermost\Models\OAuthModel;
-use Gnello\Mattermost\Models\PluginModel;
-use Gnello\Mattermost\Models\PostModel;
-use Gnello\Mattermost\Models\PreferenceModel;
-use Gnello\Mattermost\Models\ReactionModel;
-use Gnello\Mattermost\Models\RoleModel;
-use Gnello\Mattermost\Models\SAMLModel;
-use Gnello\Mattermost\Models\SchemeModel;
-use Gnello\Mattermost\Models\SystemModel;
-use Gnello\Mattermost\Models\TeamModel;
-use Gnello\Mattermost\Models\UserModel;
-use Gnello\Mattermost\Models\WebhookModel;
 use GuzzleHttp\Psr7\Response;
 use Pimple\Container;
 use Psr\Http\Message\ResponseInterface;
+use Scaleplan\Mattermost\Models\BotModel;
+use Scaleplan\Mattermost\Models\BrandModel;
+use Scaleplan\Mattermost\Models\ChannelModel;
+use Scaleplan\Mattermost\Models\ClusterModel;
+use Scaleplan\Mattermost\Models\CommandModel;
+use Scaleplan\Mattermost\Models\ComplianceModel;
+use Scaleplan\Mattermost\Models\DataRetentionModel;
+use Scaleplan\Mattermost\Models\ElasticsearchModel;
+use Scaleplan\Mattermost\Models\EmojiModel;
+use Scaleplan\Mattermost\Models\FileModel;
+use Scaleplan\Mattermost\Models\JobModel;
+use Scaleplan\Mattermost\Models\LDAPModel;
+use Scaleplan\Mattermost\Models\OAuthModel;
+use Scaleplan\Mattermost\Models\PluginModel;
+use Scaleplan\Mattermost\Models\PostModel;
+use Scaleplan\Mattermost\Models\PreferenceModel;
+use Scaleplan\Mattermost\Models\ReactionModel;
+use Scaleplan\Mattermost\Models\RoleModel;
+use Scaleplan\Mattermost\Models\SAMLModel;
+use Scaleplan\Mattermost\Models\SchemeModel;
+use Scaleplan\Mattermost\Models\SystemModel;
+use Scaleplan\Mattermost\Models\TeamModel;
+use Scaleplan\Mattermost\Models\UserModel;
+use Scaleplan\Mattermost\Models\WebhookModel;
 
 /**
  * Class Driver
  *
- * @package Gnello\Mattermost
+ * @package Scaleplan\Mattermost
  */
 class Driver
 {
@@ -52,12 +54,12 @@ class Driver
      * @var array
      */
     private $defaultOptions = [
-        'scheme' => 'https',
+        'scheme'   => 'https',
         'basePath' => '/api/v4',
-        'url' => 'localhost',
+        'url'      => 'localhost',
         'login_id' => null,
         'password' => null,
-        'token' => null,
+        'token'    => null,
     ];
 
     /**
@@ -92,7 +94,7 @@ class Driver
     /**
      * @return ResponseInterface
      */
-    public function authenticate()
+    public function authenticate() : ResponseInterface
     {
         $driverOptions = $this->container['driver'];
 
@@ -101,14 +103,14 @@ class Driver
             $this->container['client']->setToken($driverOptions['token']);
             $response = $this->getUserModel()->getAuthenticatedUser();
 
-        } else if (isset($driverOptions['login_id']) && isset($driverOptions['password'])) {
+        } else if (isset($driverOptions['login_id'], $driverOptions['password'])) {
 
             $response = $this->getUserModel()->loginToUserAccount([
                 'login_id' => $driverOptions['login_id'],
-                'password' => $driverOptions['password']
+                'password' => $driverOptions['password'],
             ]);
 
-            if ($response->getStatusCode() == 200) {
+            if ($response->getStatusCode() === 200) {
                 $token = $response->getHeader('Token')[0];
                 $this->container['client']->setToken($token);
             }
@@ -116,11 +118,11 @@ class Driver
         } else {
 
             $response = new Response(401, [], json_encode([
-                "id" => "missing.credentials.",
-                "message" => "You must provide a login_id and password or a valid token.",
-                "detailed_error" => "",
-                "request_id" => "",
-                "status_code" => 401,
+                'id'             => 'missing.credentials.',
+                'message'        => 'You must provide a login_id and password or a valid token.',
+                'detailed_error' => '',
+                'request_id'     => '',
+                'status_code'    => 401,
             ]));
 
         }
@@ -130,6 +132,7 @@ class Driver
 
     /**
      * @param $className
+     *
      * @return mixed
      */
     private function getModel($className)
@@ -144,7 +147,7 @@ class Driver
     /**
      * @return UserModel
      */
-    public function getUserModel()
+    public function getUserModel() : UserModel
     {
         return $this->getModel(UserModel::class);
     }
@@ -152,7 +155,7 @@ class Driver
     /**
      * @return TeamModel
      */
-    public function getTeamModel()
+    public function getTeamModel() : TeamModel
     {
         return $this->getModel(TeamModel::class);
     }
@@ -160,7 +163,7 @@ class Driver
     /**
      * @return ChannelModel
      */
-    public function getChannelModel()
+    public function getChannelModel() : ChannelModel
     {
         return $this->getModel(ChannelModel::class);
     }
@@ -168,7 +171,7 @@ class Driver
     /**
      * @return PostModel
      */
-    public function getPostModel()
+    public function getPostModel() : PostModel
     {
         return $this->getModel(PostModel::class);
     }
@@ -176,16 +179,17 @@ class Driver
     /**
      * @return FileModel
      */
-    public function getFileModel()
+    public function getFileModel() : FileModel
     {
         return $this->getModel(FileModel::class);
     }
 
     /**
      * @param $userId
+     *
      * @return PreferenceModel
      */
-    public function getPreferenceModel($userId)
+    public function getPreferenceModel($userId) : PreferenceModel
     {
         if (!isset($this->models[PreferenceModel::class])) {
             $this->models[PreferenceModel::class] = new PreferenceModel($this->container['client'], $userId);
@@ -197,7 +201,7 @@ class Driver
     /**
      * @return WebhookModel
      */
-    public function getWebhookModel()
+    public function getWebhookModel() : WebhookModel
     {
         return $this->getModel(WebhookModel::class);
     }
@@ -205,7 +209,7 @@ class Driver
     /**
      * @return SystemModel
      */
-    public function getSystemModel()
+    public function getSystemModel() : SystemModel
     {
         return $this->getModel(SystemModel::class);
     }
@@ -213,7 +217,7 @@ class Driver
     /**
      * @return ComplianceModel
      */
-    public function getComplianceModel()
+    public function getComplianceModel() : ComplianceModel
     {
         return $this->getModel(ComplianceModel::class);
     }
@@ -221,7 +225,7 @@ class Driver
     /**
      * @return CommandModel
      */
-    public function getCommandModel()
+    public function getCommandModel() : CommandModel
     {
         return $this->getModel(CommandModel::class);
     }
@@ -229,7 +233,7 @@ class Driver
     /**
      * @return ClusterModel
      */
-    public function getClusterModel()
+    public function getClusterModel() : ClusterModel
     {
         return $this->getModel(ClusterModel::class);
     }
@@ -237,7 +241,7 @@ class Driver
     /**
      * @return BrandModel
      */
-    public function getBrandModel()
+    public function getBrandModel() : BrandModel
     {
         return $this->getModel(BrandModel::class);
     }
@@ -245,7 +249,7 @@ class Driver
     /**
      * @return LDAPModel
      */
-    public function getLDAPModel()
+    public function getLDAPModel() : LDAPModel
     {
         return $this->getModel(LDAPModel::class);
     }
@@ -253,7 +257,7 @@ class Driver
     /**
      * @return OAuthModel
      */
-    public function getOAuthModel()
+    public function getOAuthModel() : OAuthModel
     {
         return $this->getModel(OAuthModel::class);
     }
@@ -261,7 +265,7 @@ class Driver
     /**
      * @return SAMLModel
      */
-    public function getSAMLModel()
+    public function getSAMLModel() : SAMLModel
     {
         return $this->getModel(SAMLModel::class);
     }
@@ -269,7 +273,7 @@ class Driver
     /**
      * @return ElasticsearchModel
      */
-    public function getElasticsearchModel()
+    public function getElasticsearchModel() : ElasticsearchModel
     {
         return $this->getModel(ElasticsearchModel::class);
     }
@@ -277,7 +281,7 @@ class Driver
     /**
      * @return EmojiModel
      */
-    public function getEmojiModel()
+    public function getEmojiModel() : EmojiModel
     {
         return $this->getModel(EmojiModel::class);
     }
@@ -285,7 +289,7 @@ class Driver
     /**
      * @return ReactionModel
      */
-    public function getReactionModel()
+    public function getReactionModel() : ReactionModel
     {
         return $this->getModel(ReactionModel::class);
     }
@@ -293,7 +297,7 @@ class Driver
     /**
      * @return DataRetentionModel
      */
-    public function getDataRetentionModel()
+    public function getDataRetentionModel() : DataRetentionModel
     {
         return $this->getModel(DataRetentionModel::class);
     }
@@ -301,7 +305,7 @@ class Driver
     /**
      * @return JobModel
      */
-    public function getJobModel()
+    public function getJobModel() : JobModel
     {
         return $this->getModel(JobModel::class);
     }
@@ -309,7 +313,7 @@ class Driver
     /**
      * @return PluginModel
      */
-    public function getPluginModel()
+    public function getPluginModel() : PluginModel
     {
         return $this->getModel(PluginModel::class);
     }
@@ -317,7 +321,7 @@ class Driver
     /**
      * @return RoleModel
      */
-    public function getRoleModel()
+    public function getRoleModel() : RoleModel
     {
         return $this->getModel(RoleModel::class);
     }
@@ -325,7 +329,7 @@ class Driver
     /**
      * @return SchemeModel
      */
-    public function getSchemeModel()
+    public function getSchemeModel() : SchemeModel
     {
         return $this->getModel(SchemeModel::class);
     }
@@ -333,7 +337,7 @@ class Driver
     /**
      * @return BotModel
      */
-    public function getBotModel()
+    public function getBotModel() : BotModel
     {
         return $this->getModel(BotModel::class);
     }

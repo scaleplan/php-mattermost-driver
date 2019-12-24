@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -9,15 +11,13 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class EmojiModel
- *
- * @package Gnello\MattermostRestApi\Models
  */
 class EmojiModel extends AbstractModel
 {
@@ -28,9 +28,10 @@ class EmojiModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function createCustomEmoji(array $requestOptions)
+    public function createCustomEmoji(array $requestOptions) : ResponseInterface
     {
         $internalRequestOptions = self::buildMultipartDataOptions($requestOptions, ['image', 'emoji']);
 
@@ -39,36 +40,40 @@ class EmojiModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getListOfCustomEmoji(array $requestOptions)
+    public function getListOfCustomEmoji(array $requestOptions) : ResponseInterface
     {
         return $this->client->get(self::$endpoint, $requestOptions);
     }
 
     /**
      * @param $emojiId
+     *
      * @return ResponseInterface
      */
-    public function getCustomEmoji($emojiId)
+    public function getCustomEmoji($emojiId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $emojiId);
     }
 
     /**
      * @param $emojiId
+     *
      * @return ResponseInterface
      */
-    public function deleteCustomEmoji($emojiId)
+    public function deleteCustomEmoji($emojiId) : ResponseInterface
     {
         return $this->client->delete(self::$endpoint . '/' . $emojiId);
     }
 
     /**
      * @param $emojiId
+     *
      * @return ResponseInterface
      */
-    public function getCustomEmojiImage($emojiId)
+    public function getCustomEmojiImage($emojiId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $emojiId . '/image');
     }

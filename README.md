@@ -31,7 +31,7 @@ composer require gnello/php-mattermost-driver:1.*
 
 #### Login id and password
 ```php
- use \Gnello\Mattermost\Driver;
+ use \Scaleplan\Mattermost\Driver;
  
  $container = new \Pimple\Container([
      'driver' => [
@@ -50,7 +50,7 @@ composer require gnello/php-mattermost-driver:1.*
 
 #### Token
 ```php
- use \Gnello\Mattermost\Driver;
+ use \Scaleplan\Mattermost\Driver;
  
  $container = new \Pimple\Container([
      'driver' => [

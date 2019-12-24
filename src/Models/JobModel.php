@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -9,15 +11,13 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class JobModel
- *
- * @package Gnello\Mattermost\Models
  */
 class JobModel extends AbstractModel
 {
@@ -28,36 +28,40 @@ class JobModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getJobs(array $requestOptions = [])
+    public function getJobs(array $requestOptions = []) : ResponseInterface
     {
         return $this->client->get(self::$endpoint, $requestOptions, RequestOptions::QUERY);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function createJob(array $requestOptions)
+    public function createJob(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint, $requestOptions);
     }
 
     /**
      * @param $jobId
+     *
      * @return ResponseInterface
      */
-    public function getJob($jobId)
+    public function getJob($jobId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $jobId);
     }
 
     /**
      * @param $jobId
+     *
      * @return ResponseInterface
      */
-    public function deleteJob($jobId)
+    public function deleteJob($jobId) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/' . $jobId . '/cancel');
     }
@@ -65,9 +69,10 @@ class JobModel extends AbstractModel
     /**
      * @param       $type
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getJobsOfType($type, array $requestOptions = [])
+    public function getJobsOfType($type, array $requestOptions = []) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/type/' . $type, $requestOptions);
     }

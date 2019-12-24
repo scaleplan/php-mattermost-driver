@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -9,14 +11,12 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class ComplianceModel
- *
- * @package Gnello\MattermostRestApi\Models
  */
 class ComplianceModel extends AbstractModel
 {
@@ -27,36 +27,40 @@ class ComplianceModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function createReport(array $requestOptions)
+    public function createReport(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/reports', $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getReports(array $requestOptions)
+    public function getReports(array $requestOptions) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/reports', $requestOptions);
     }
 
     /**
      * @param $reportId
+     *
      * @return ResponseInterface
      */
-    public function getReport($reportId)
+    public function getReport($reportId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/reports/' . $reportId);
     }
 
     /**
      * @param       $reportId
+     *
      * @return ResponseInterface
      */
-    public function downloadReport($reportId)
+    public function downloadReport($reportId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/reports/' . $reportId . '/download');
     }

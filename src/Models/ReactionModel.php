@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -13,14 +15,12 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class ReactionModel
- *
- * @package Gnello\Mattermost\Models
  */
 class ReactionModel extends AbstractModel
 {
@@ -31,9 +31,10 @@ class ReactionModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function saveReaction(array $requestOptions)
+    public function saveReaction(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint, $requestOptions);
     }

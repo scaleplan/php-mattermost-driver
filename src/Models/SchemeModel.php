@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -9,14 +11,12 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class SchemeModel
- *
- * @package Gnello\Mattermost\Models
  */
 class SchemeModel extends AbstractModel
 {
@@ -28,34 +28,37 @@ class SchemeModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function getSchemes()
+    public function getSchemes() : ResponseInterface
     {
         return $this->client->get(self::$endpoint);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function createScheme(array $requestOptions)
+    public function createScheme(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint, $requestOptions);
     }
 
     /**
      * @param $schemeId
+     *
      * @return ResponseInterface
      */
-    public function getScheme($schemeId)
+    public function getScheme($schemeId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $schemeId);
     }
 
     /**
      * @param $schemeId
+     *
      * @return ResponseInterface
      */
-    public function deleteScheme($schemeId)
+    public function deleteScheme($schemeId) : ResponseInterface
     {
         return $this->client->delete(self::$endpoint . '/' . $schemeId);
     }
@@ -63,9 +66,10 @@ class SchemeModel extends AbstractModel
     /**
      * @param       $schemeId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function patchScheme($schemeId, array $requestOptions)
+    public function patchScheme($schemeId, array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/' . $schemeId . '/patch', $requestOptions);
     }
@@ -73,9 +77,10 @@ class SchemeModel extends AbstractModel
     /**
      * @param       $schemeId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getTeamsOfScheme($schemeId, array $requestOptions)
+    public function getTeamsOfScheme($schemeId, array $requestOptions) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $schemeId . '/teams', $requestOptions);
     }
@@ -83,9 +88,10 @@ class SchemeModel extends AbstractModel
     /**
      * @param       $schemeId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getChannelsOfScheme($schemeId, array $requestOptions)
+    public function getChannelsOfScheme($schemeId, array $requestOptions) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $schemeId . '/channels', $requestOptions);
     }

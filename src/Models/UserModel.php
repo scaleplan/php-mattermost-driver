@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -9,15 +11,13 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class UserEntity
- *
- * @package Gnello\MattermostRestApi\Entities
  */
 class UserModel extends AbstractModel
 {
@@ -28,9 +28,10 @@ class UserModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function loginToUserAccount(array $requestOptions)
+    public function loginToUserAccount(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/login', $requestOptions);
     }
@@ -38,7 +39,7 @@ class UserModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function logoutOfUserAccount()
+    public function logoutOfUserAccount() : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/logout');
     }
@@ -46,61 +47,67 @@ class UserModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function getAuthenticatedUser()
+    public function getAuthenticatedUser() : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/me');
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function createUser(array $requestOptions)
+    public function createUser(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint, $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getUsers(array $requestOptions)
+    public function getUsers(array $requestOptions) : ResponseInterface
     {
         return $this->client->get(self::$endpoint, $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getUsersByIds(array $requestOptions)
+    public function getUsersByIds(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/ids', $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function searchUsers(array $requestOptions)
+    public function searchUsers(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/search', $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function autocompleteUsers(array $requestOptions)
+    public function autocompleteUsers(array $requestOptions) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/autocomplete', $requestOptions);
     }
 
     /**
      * @param $userId
+     *
      * @return ResponseInterface
      */
-    public function getUser($userId)
+    public function getUser($userId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $userId);
     }
@@ -108,18 +115,20 @@ class UserModel extends AbstractModel
     /**
      * @param $userId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function updateUser($userId, array $requestOptions)
+    public function updateUser($userId, array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/' . $userId, $requestOptions);
     }
 
     /**
      * @param $userId
+     *
      * @return ResponseInterface
      */
-    public function deactivateUserAccount($userId)
+    public function deactivateUserAccount($userId) : ResponseInterface
     {
         return $this->client->delete(self::$endpoint . '/' . $userId);
     }
@@ -127,9 +136,10 @@ class UserModel extends AbstractModel
     /**
      * @param $userId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function patchUser($userId, array $requestOptions)
+    public function patchUser($userId, array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/' . $userId . '/patch', $requestOptions);
     }
@@ -137,9 +147,10 @@ class UserModel extends AbstractModel
     /**
      * @param $userId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function updateUserRoles($userId, array $requestOptions)
+    public function updateUserRoles($userId, array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/' . $userId . '/roles', $requestOptions);
     }
@@ -147,18 +158,20 @@ class UserModel extends AbstractModel
     /**
      * @param $userId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function updateUserActive($userId, array $requestOptions)
+    public function updateUserActive($userId, array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/' . $userId . '/active', $requestOptions);
     }
 
     /**
      * @param $userId
+     *
      * @return ResponseInterface
      */
-    public function getUserProfileImage($userId)
+    public function getUserProfileImage($userId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $userId . '/image');
     }
@@ -166,9 +179,10 @@ class UserModel extends AbstractModel
     /**
      * @param $userId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function setUserProfileImage($userId, array $requestOptions)
+    public function setUserProfileImage($userId, array $requestOptions) : ResponseInterface
     {
         $internalRequestOptions = self::buildMultipartDataOptions($requestOptions, ['image']);
 
@@ -177,45 +191,50 @@ class UserModel extends AbstractModel
 
     /**
      * @param $userId
+     *
      * @return ResponseInterface
      */
-    public function deleteUserProfileImage($userId)
+    public function deleteUserProfileImage($userId) : ResponseInterface
     {
         return $this->client->delete(self::$endpoint . '/' . $userId . '/image');
     }
 
     /**
      * @param $userId
+     *
      * @return ResponseInterface
      */
-    public function returnUserDefaultProfileImage($userId)
+    public function returnUserDefaultProfileImage($userId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $userId . '/image/default');
     }
 
     /**
      * @param $username
+     *
      * @return ResponseInterface
      */
-    public function getUserByUsername($username)
+    public function getUserByUsername($username) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/username/' . $username);
     }
 
     /**
      * @param $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getUsersByUsernames(array $requestOptions)
+    public function getUsersByUsernames(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/usernames/', $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function resetPassword(array $requestOptions)
+    public function resetPassword(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/password/reset', $requestOptions);
     }
@@ -223,9 +242,10 @@ class UserModel extends AbstractModel
     /**
      * @param       $userId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function updateUserMfa($userId, array $requestOptions)
+    public function updateUserMfa($userId, array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/' . $userId . '/mfa', $requestOptions);
     }
@@ -233,18 +253,20 @@ class UserModel extends AbstractModel
     /**
      * @param       $userId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function generateMfaSecret($userId, array $requestOptions)
+    public function generateMfaSecret($userId, array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/' . $userId . '/mfa/generate', $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function checkMfa(array $requestOptions)
+    public function checkMfa(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/mfa', $requestOptions);
     }
@@ -252,36 +274,40 @@ class UserModel extends AbstractModel
     /**
      * @param       $userId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function updateUserPassword($userId, array $requestOptions)
+    public function updateUserPassword($userId, array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/' . $userId . '/password', $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function sendPasswordResetEmail(array $requestOptions)
+    public function sendPasswordResetEmail(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/password/reset/send', $requestOptions);
     }
 
     /**
      * @param $email
+     *
      * @return ResponseInterface
      */
-    public function getUserByEmail($email)
+    public function getUserByEmail($email) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/email/' . $email);
     }
 
     /**
      * @param $userId
+     *
      * @return ResponseInterface
      */
-    public function getUserSessions($userId)
+    public function getUserSessions($userId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $userId . '/sessions');
     }
@@ -289,63 +315,70 @@ class UserModel extends AbstractModel
     /**
      * @param $userId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function revokeUserSession($userId, array $requestOptions)
+    public function revokeUserSession($userId, array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/' . $userId . '/sessions/revoke', $requestOptions);
     }
 
     /**
      * @param $userId
+     *
      * @return ResponseInterface
      */
-    public function revokeAllUserSessions($userId)
+    public function revokeAllUserSessions($userId) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/' . $userId . '/sessions/revoke/all');
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function attachMobileDevice(array $requestOptions)
+    public function attachMobileDevice(array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/sessions/device', $requestOptions);
     }
 
     /**
      * @param $userId
+     *
      * @return ResponseInterface
      */
-    public function getUserAudits($userId)
+    public function getUserAudits($userId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $userId . '/audits');
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function verifyUserEmail(array $requestOptions)
+    public function verifyUserEmail(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/email/verify', $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function sendVerificationEmail(array $requestOptions)
+    public function sendVerificationEmail(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/email/verify/send', $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function switchLoginMethod(array $requestOptions)
+    public function switchLoginMethod(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/login/switch', $requestOptions);
     }
@@ -353,9 +386,10 @@ class UserModel extends AbstractModel
     /**
      * @param       $userId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function createToken($userId, array $requestOptions)
+    public function createToken($userId, array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/' . $userId . '/tokens', $requestOptions);
     }
@@ -363,63 +397,70 @@ class UserModel extends AbstractModel
     /**
      * @param       $userId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function getTokens($userId, array $requestOptions)
+    public function getTokens($userId, array $requestOptions) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $userId . '/tokens', $requestOptions);
     }
 
     /**
      * @param $tokenId
+     *
      * @return ResponseInterface
      */
-    public function getToken($tokenId)
+    public function getToken($tokenId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/tokens/' . $tokenId);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function revokeToken(array $requestOptions)
+    public function revokeToken(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/tokens/revoke', $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function disablePersonalAccessToken(array $requestOptions)
+    public function disablePersonalAccessToken(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/tokens/disable', $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function enablePersonalAccessToken(array $requestOptions)
+    public function enablePersonalAccessToken(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/tokens/enable', $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function searchTokens(array $requestOptions)
+    public function searchTokens(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/tokens/search', $requestOptions);
     }
-    
+
     /**
      * @param $userId
+     *
      * @return ResponseInterface
      */
-    public function getUserStatus($userId)
+    public function getUserStatus($userId) : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/' . $userId . '/status');
     }
@@ -427,9 +468,10 @@ class UserModel extends AbstractModel
     /**
      * @param       $userId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function updateUserStatus($userId, array $requestOptions)
+    public function updateUserStatus($userId, array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/' . $userId . '/status', $requestOptions);
     }
@@ -437,9 +479,10 @@ class UserModel extends AbstractModel
     /**
      * @param       $userId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function updateUserAuthenticationMethod($userId, array $requestOptions)
+    public function updateUserAuthenticationMethod($userId, array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/' . $userId . '/auth', $requestOptions);
     }
@@ -447,7 +490,7 @@ class UserModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function getTotalCountOfUsersInTheSystem()
+    public function getTotalCountOfUsersInTheSystem() : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/stats');
     }

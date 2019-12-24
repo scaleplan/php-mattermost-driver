@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -9,15 +11,13 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class SAMLModel
- *
- * @package Gnello\MattermostRestApi\Models
  */
 class SAMLModel extends AbstractModel
 {
@@ -29,16 +29,17 @@ class SAMLModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function getMetadata()
+    public function getMetadata() : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/metadata');
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function uploadIDPCertificate(array $requestOptions)
+    public function uploadIDPCertificate(array $requestOptions) : ResponseInterface
     {
         $internalRequestOptions = self::buildMultipartDataOptions($requestOptions, ['certificate']);
 
@@ -48,16 +49,17 @@ class SAMLModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function removeIDPCertificate()
+    public function removeIDPCertificate() : ResponseInterface
     {
         return $this->client->delete(self::$endpoint . '/certificate/idp');
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function uploadPublicCertificate(array $requestOptions)
+    public function uploadPublicCertificate(array $requestOptions) : ResponseInterface
     {
         $internalRequestOptions = self::buildMultipartDataOptions($requestOptions, ['certificate']);
 
@@ -67,16 +69,17 @@ class SAMLModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function removePublicCertificate()
+    public function removePublicCertificate() : ResponseInterface
     {
         return $this->client->delete(self::$endpoint . '/certificate/public');
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function uploadPrivateCertificate(array $requestOptions)
+    public function uploadPrivateCertificate(array $requestOptions) : ResponseInterface
     {
         $internalRequestOptions = self::buildMultipartDataOptions($requestOptions, ['certificate']);
 
@@ -86,7 +89,7 @@ class SAMLModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function removePrivateCertificate()
+    public function removePrivateCertificate() : ResponseInterface
     {
         return $this->client->delete(self::$endpoint . '/certificate/private');
     }
@@ -94,7 +97,7 @@ class SAMLModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function getCertificateStatus()
+    public function getCertificateStatus() : ResponseInterface
     {
         return $this->client->get(self::$endpoint . '/certificate/status');
     }

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -9,14 +11,12 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class CommandModel
- *
- * @package Gnello\MattermostRestApi\Models
  */
 class CommandModel extends AbstractModel
 {
@@ -27,27 +27,30 @@ class CommandModel extends AbstractModel
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function createCommand(array $requestOptions)
+    public function createCommand(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint, $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function listCommandsForTeam(array $requestOptions)
+    public function listCommandsForTeam(array $requestOptions) : ResponseInterface
     {
         return $this->client->get(self::$endpoint, $requestOptions);
     }
 
     /**
      * @param $teamId
+     *
      * @return ResponseInterface
      */
-    public function listAutocompleteCommands($teamId)
+    public function listAutocompleteCommands($teamId) : ResponseInterface
     {
         return $this->client->get(TeamModel::$endpoint . '/' . $teamId . '/commands/autocomplete');
     }
@@ -55,36 +58,40 @@ class CommandModel extends AbstractModel
     /**
      * @param       $commandId
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function updateCommand($commandId, array $requestOptions)
+    public function updateCommand($commandId, array $requestOptions) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/' . $commandId, $requestOptions);
     }
 
     /**
      * @param $commandId
+     *
      * @return ResponseInterface
      */
-    public function deleteCommand($commandId)
+    public function deleteCommand($commandId) : ResponseInterface
     {
         return $this->client->delete(self::$endpoint . '/' . $commandId);
     }
 
     /**
      * @param $commandId
+     *
      * @return ResponseInterface
      */
-    public function generateNewToken($commandId)
+    public function generateNewToken($commandId) : ResponseInterface
     {
         return $this->client->put(self::$endpoint . '/' . $commandId . '/regen_token');
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function executeCommand(array $requestOptions)
+    public function executeCommand(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(self::$endpoint . '/execute', $requestOptions);
     }

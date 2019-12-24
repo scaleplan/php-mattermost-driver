@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This Driver is based entirely on official documentation of the Mattermost Web
  * Services API and you can extend it by following the directives of the documentation.
@@ -13,15 +15,13 @@
  * @link https://api.mattermost.com/
  */
 
-namespace Gnello\Mattermost\Models;
+namespace Scaleplan\Mattermost\Models;
 
-use Gnello\Mattermost\Client;
 use Psr\Http\Message\ResponseInterface;
+use Scaleplan\Mattermost\Client;
 
 /**
  * Class PreferenceModel
- *
- * @package Gnello\Mattermost\Models
  */
 class PreferenceModel extends AbstractModel
 {
@@ -50,34 +50,37 @@ class PreferenceModel extends AbstractModel
     /**
      * @return ResponseInterface
      */
-    public function getUserPreference()
+    public function getUserPreference() : ResponseInterface
     {
         return $this->client->get(UserModel::$endpoint . '/' . $this->userId . '/preferences');
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function saveUserPreferences(array $requestOptions)
+    public function saveUserPreferences(array $requestOptions) : ResponseInterface
     {
         return $this->client->put(UserModel::$endpoint . '/' . $this->userId . '/preferences', $requestOptions);
     }
 
     /**
      * @param array $requestOptions
+     *
      * @return ResponseInterface
      */
-    public function deleteUserPreferences(array $requestOptions)
+    public function deleteUserPreferences(array $requestOptions) : ResponseInterface
     {
         return $this->client->post(UserModel::$endpoint . '/' . $this->userId . '/preferences/delete', $requestOptions);
     }
 
     /**
      * @param $category
+     *
      * @return ResponseInterface
      */
-    public function listUserPreferences($category)
+    public function listUserPreferences($category) : ResponseInterface
     {
         return $this->client->get(UserModel::$endpoint . '/' . $this->userId . '/preferences/' . $category);
     }
@@ -85,9 +88,10 @@ class PreferenceModel extends AbstractModel
     /**
      * @param $category
      * @param $preferenceName
+     *
      * @return ResponseInterface
      */
-    public function getSpecificUserPreference($category, $preferenceName)
+    public function getSpecificUserPreference($category, $preferenceName) : ResponseInterface
     {
         return $this->client->get(UserModel::$endpoint . '/' . $this->userId . '/preferences/' . $category . '/name/' . $preferenceName);
     }
